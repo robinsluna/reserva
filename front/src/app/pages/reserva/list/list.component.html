@@ -1,0 +1,98 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Reservas</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="/reservas/add" class="btn btn-sm btn-outline-primary">Agregar</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped  table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Servicio</th>
+            <th scope="col">Desde</th>
+            <th scope="col">Hasta</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let element of data; let i = index">
+            <td scope="row">{{ element.id }}</td>
+            <td scope="row">{{ element.servicio?.nombre }}</td>
+            <td scope="row">{{ element.desde | date: 'dd/MM/yyyy' }}</td>
+            <td scope="row">{{ element.hasta | date: 'dd/MM/yyyy'}}</td>
+            <td scope="row">{{ element.tomador }}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal"
+                        (click)="view = element">Ver</button>
+                    <a href="/reservas/{{element.id}}/edit" class="btn btn-sm btn-outline-secondary">Actualizar</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Servicio</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            Id
+                        </div>
+                        <div class="col">
+                            {{ view?.id }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Servicio
+                        </div>
+                        <div class="col">
+                            {{ view?.servicio?.nombre }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Desde
+                        </div>
+                        <div class="col">
+                            {{ view?.desde | date: 'dd/MM/yyyy' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Hasta
+                        </div>
+                        <div class="col">
+                            {{ view?.hasta | date: 'dd/MM/yyyy'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            Cliente
+                        </div>
+                        <div class="col">
+                            {{ view?.tomador }}
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

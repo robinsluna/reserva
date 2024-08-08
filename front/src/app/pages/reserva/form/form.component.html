@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Reservas</h1>
+</div>
+
+
+
+<form [formGroup]="form">
+
+    <div class="mb-3">
+        <label for="nombre">Servicio: </label>
+        <select formControlName="servicioId" class="form-select" required="required">
+            <option *ngFor="let item of servicios" [value]="item.id"> {{ item.nombre}} </option>
+        </select>
+        <div *ngIf="form.get('servicioId')?.invalid && (form.get('servicioId')?.dirty || form.get('servicioId')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="form.get('servicioId')?.errors?.['servicioId']">Nombre es requerido.</div>
+        </div>
+    </div>
+    <div class="mb-3 ">
+        <label for="desde">Desde: </label>
+        <input id="desde" type="date" formControlName="desde" class="form-control" required="required">
+        <div *ngIf="form.get('desde')?.invalid && (form.get('desde')?.dirty || form.get('desde')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="form.get('desde')?.errors?.['required']">La fecha desde es requerido.</div>
+        </div>
+
+    </div>
+    <div class="mb-3 ">
+        <label for="hasta">Hasta: </label>
+        <input id="hasta" type="date" formControlName="hasta" class="form-control" required="required">
+        <div *ngIf="form.get('hasta')?.invalid && (form.get('hasta')?.dirty || form.get('hasta')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="form.get('hasta')?.errors?.['required']">La fecha hasta es requerido.</div>
+        </div>
+
+    </div>
+    <div class="mb-3 ">
+        <label for="tomador">Documento del cliente: </label>
+        <input id="tomador" type="text" formControlName="tomador" class="form-control" required="required">
+        <div *ngIf="form.get('tomador')?.invalid && (form.get('tomador')?.dirty || form.get('tomador')?.touched)"
+            class="alert alert-danger">
+            <div *ngIf="form.get('tomador')?.errors?.['required']">Documento es requerido.</div>
+        </div>
+
+    </div>
+    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!form.valid">
+        {{ id ? 'Actualizar' : 'Guardar'}}
+    </button>
+</form>
